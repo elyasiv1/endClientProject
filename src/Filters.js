@@ -21,11 +21,11 @@ export default function Filters() {
     // }
     function barPriceChange(e) {
 
-        const { type, name, checked, value } = e.target
-        const v = type === 'checkbox' ? checked : value
+        const { name, value } = e.target
 
 
-        const newcatgoryFilter = { ...catgoryFilter, [name]: v }
+
+        const newcatgoryFilter = { ...catgoryFilter, [name]: value }
 
         setcatgoryFilter(newcatgoryFilter)
 
