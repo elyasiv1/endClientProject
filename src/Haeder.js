@@ -5,7 +5,9 @@ function Haeder() {
     return (<header>
      <Link to= '/'  className='hederLink' >
        <div className='navHeader'><img className='logoImage'/></div>
+   <h2 className='haederName'>ESH SPORT</h2>
      </Link>
+     
     <nav>
       <li className='haederLi'>ראשי</li>
       <li className='haederLi'>עלינו</li>

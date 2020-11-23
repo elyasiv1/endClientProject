@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-export default function Filters() {
+export default function Filters(props) {
+    // const sending = { ...departmentFilter, [name]: value }
 
-    const [catgoryFilter, setcatgoryFilter] = useState({})
-    const [ballsFilter, setBallsFilter] = useState(false)
-    const [coachFilter, setCoachFilter] = useState(false)
-    const [playersFilter, setplayersFilter] = useState(false)
-    const [yardFilter, setYardFilter] = useState(false)
-    const [catgory, setcatgory] = useState({})
+    // setdepartmentFilter(sending)
+
+
+
+
+    //   if(!departmentFilter.balls && !departmentFilter.coach && !departmentFilter.players && !departmentFilter.yard){
+    //       return setcatgory(...departmentFilter,sending,"all") 
+    //   }
+    //  else if(departmentFilter.balls && !departmentFilter.coach && !departmentFilter.players && !departmentFilter.yard){
+    //       return setcatgory(...departmentFilter,sending,"balls") 
+    //   }
+    //  else if(!departmentFilter.balls && departmentFilter.coach && !departmentFilter.players && !departmentFilter.yard){
+    //       return setcatgory(...departmentFilter,sending,"coach") 
+    //   }
+    //  else if(!departmentFilter.balls && !departmentFilter.coach && departmentFilter.players && !departmentFilter.yard){
+    //       return setcatgory(...departmentFilter,sending,"players") 
+    //   }
+    //  else if(!departmentFilter.balls && !departmentFilter.coach && !departmentFilter.players && departmentFilter.yard){
+    //       return setcatgory(...departmentFilter,sending,"yard") 
+    //   }
+
+
+
+    // const [ballsFilter, setBallsFilter] = useState(false)
+    // const [coachFilter, setcoachFilter] = useState(false)
+    // const [playersFilter, setplayersFilter] = useState(false)
+    // const [yardFilter, setYardFilter] = useState(false)
+    // const [catgory, setcatgory] = useState({})
     // async function getCatgory() {
     //     try {
     //         const res = await fetch('http://localhost:5555/items/').then(r => r.json())
@@ -19,85 +42,65 @@ export default function Filters() {
     //      }
 
     // }
-    function barPriceChange(e) {
-
-        const { name, value } = e.target
 
 
-
-        const newcatgoryFilter = { ...catgoryFilter, [name]: value }
-
-        setcatgoryFilter(newcatgoryFilter)
+    // sendFilters()
 
 
-    }
-    const onClickfiltersHandler = (filterName) => {
-        setBallsFilter(false)
-        setCoachFilter(false)
-        setplayersFilter(false)
-        setYardFilter(false)
-
-        if (filterName === "balls")
-            setBallsFilter(true)
-
-        if (filterName === "coach")
-            setCoachFilter(true)
-
-        if (filterName === "players")
-            setplayersFilter(true)
-
-        if (filterName === "yard")
-            setYardFilter(true)
-sendFilters()
-
-    }
-    function sendFilters() {// שולח לשרת נתונים מהפילטר כדי להציג את הפריטים המבוקשים
-        let filtersName = ''
-        if (!ballsFilter && !coachFilter && !playersFilter && !yardFilter) {
-            return filtersName = "all", catgoryFilter.barPrice
-        }
-        else if (ballsFilter && !coachFilter && !playersFilter && !yardFilter) {
-            return filtersName = "balls", catgoryFilter.barPrice
-        }
-        else if (ballsFilter && coachFilter && !playersFilter && !yardFilter) {
-            return filtersName = "coach", catgoryFilter.barPrice
-        }
-        else if (ballsFilter && !coachFilter && playersFilter && !yardFilter) {
-            return filtersName = "players", catgoryFilter.barPrice
-        }
-        else if (ballsFilter && !coachFilter && !playersFilter && yardFilter) {
-            return filtersName = "yard", catgoryFilter.barPrice
-        }
-    }
+    // function sendFilters() {// שולח לשרת נתונים מהפילטר כדי להציג את הפריטים המבוקשים
+    //     let filtersName = ''
+    //     if (!departmentFilter.balls && !departmentFilter.coach && !departmentFilter.players && !departmentFilter.yard) {
+    //         return filtersName = "all",departmentFilter.barPrice
+    //     }
+    //     else if (ballsFilter && !coachFilter && !playersFilter && !yardFilter) {
+    //         return filtersName = "balls", departmentFilter.barPrice
+    //     }
+    //     else if (ballsFilter && coachFilter && !playersFilter && !yardFilter) {
+    //         return filtersName = "coach", departmentFilter.barPrice
+    //     }
+    //     else if (ballsFilter && !coachFilter && playersFilter && !yardFilter) {
+    //         return filtersName = "players", departmentFilter.barPrice
+    //     }
+    //     else if (ballsFilter && !coachFilter && !playersFilter && yardFilter) {
+    //         return filtersName = "yard", departmentFilter.barPrice
+    //     }
+    // }
     const filtersTabsList = [
         {
-            className: ['liCatgory', ballsFilter ? 'liCatgoryOn' : ""].join(" "),
+            className: ['liCatgory', props.departmentFilter.all ? 'liCatgoryOn' : ""].join(" "),
+            name: 'כל המוצרים',
+            key: 'all',
+            onClick: () => props.onClickfiltersHandler("all")
+        },
+        {
+            className: ['liCatgory', props.departmentFilter.balls ? 'liCatgoryOn' : ""].join(" "),
             name: 'כדורים',
             key: 'balls',
-            onClick: () => onClickfiltersHandler("balls")
+            onClick: () => props.onClickfiltersHandler("balls")
         },
         {
-            className: ['liCatgory', coachFilter ? 'liCatgoryOn' : ""].join(" "),
+            className: ['liCatgory', props.departmentFilter.coach ? 'liCatgoryOn' : ""].join(" "),
             name: 'למאמן',
             key: 'coach',
-            onClick: () => onClickfiltersHandler("coach")
+            onClick: () => props.onClickfiltersHandler("coach")
         },
         {
-            className: ['liCatgory', playersFilter ? 'liCatgoryOn' : ""].join(" "),
+            className: ['liCatgory', props.departmentFilter.players ? 'liCatgoryOn' : ""].join(" "),
             name: 'לשחקן',
             key: 'players',
-            onClick: () => onClickfiltersHandler("players")
+            onClick: () => props.onClickfiltersHandler("players")
         },
         {
-            className: ['liCatgory', yardFilter ? 'liCatgoryOn' : ""].join(" "),
+            className: ['liCatgory', props.departmentFilter.yard ? 'liCatgoryOn' : ""].join(" "),
             name: 'למרפסת&לחצר',
             key: 'yard',
-            onClick: () => onClickfiltersHandler("yard")
+            onClick: () => props.onClickfiltersHandler("yard")//משום מה  לא עובד הקלאס 16.6
         },
     ]
     return <div className='bigBoxFilters'>'
         <div className="catgoryBox" >
-            <ul onClickCapture={barPriceChange}>
+            <ul>
+
                 קטגוריות
                 <br />
                 <br />
@@ -113,8 +116,8 @@ sendFilters()
             <h2>תווך מחירים</h2>
             <br />
             <div className='priceBarcontainer'>
-                <input type="range" name='barPrice' min="1" max="15000" className="barPrice" onChange={barPriceChange} />
-                <h2>מ0 - {catgoryFilter.barPrice}ש"ח</h2>
+                <input type="range" name='barPrice' min="1" max="15000" className="barPrice" onChange={props.barPriceChange} />
+                <h2>מ0 - {props.departmentFilter.barPrice}ש"ח</h2>
             </div>
 
         </div>
