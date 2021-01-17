@@ -6,12 +6,14 @@ export default function ItemAvailable(props) {
     return <div className='boxItem'>
 
         {items.map((item, index) => {
-            let btn = <div className='addToCart' key={index} onClick={(e) => { props.selectedItem(item) }} >הוסף לעגלה</div>
-            if (item.count <= 1)
+            let btn = <div className='addToCart' key={index} onClick={(e) => { props.selectedItem(item) }} 
+            >הוסף לעגלה</div>
+            if (item.count >= 1)
+            
                 btn = <div className='addToCartNamber'  key={index}>
-                    <div className='addToCartP'onClick={(e)=>{props.changeItemCountPlus(item)}}>+</div>
+                    <div className='addToCartP'onClick={(e)=>{props.changeItemCount(item.id,1)}}>+</div>
                     <h2 className="cuntNumber">{props.cartItem, item.count}</h2>
-                    <div className='addToCartM'onClick={(e)=>{props.changeItemCountMinus(item)}}>-</div>
+                    <div className='addToCartM'onClick={(e)=>{props.changeItemCount(item.id,-1)}}>-</div>
                 </div>
 
             const itemPresentation =

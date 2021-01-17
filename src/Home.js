@@ -18,7 +18,7 @@ export default function Home() {
     })
 
     useEffect(() => {
-        console.log("der")
+        console.log("effect")
         loadingItem()
     }, [departmentFilter])
 
@@ -31,40 +31,33 @@ export default function Home() {
         setcartItem(newSelectedItemsList)
         console.log("add to cart", item);
     }
-    const changeItemCountPlus = (item) => {
-        item.count = item.count+1
+    // const changeItemCountPlus = (item) => {
+    //     item.count = item.count + 1
 
-        const newItemCount = [...cartItem, item]
-        // item.count = 1// הוספת מוצר לעגלה בפעם הרשונה
+    //     const newItemCount = [...cartItem, item]
+    //     // עכון הוספת יחדה למוצר 
 
-        setcartItem(newItemCount)
-        console.log("add to cart", item);
-    }
-    const changeItemCountMinus = (item) => {
-        item.count = item.count-1
-
-        const newItemCount = [...cartItem, item]
-        // item.count = 1// הוספת מוצר לעגלה בפעם הרשונה
-
-        setcartItem(newItemCount)
-        console.log("add to cart", item);
-    }
-
-    console.log("items in cart", cartItem);
-
-    // const selectedItem = (item) => {// הוספת מוצר לעגלה בפעם הרשונה
-    //     item.count = 1
-    //     setcartItem(cartItem.concat([item]))
-    //     console.log("add to cart", cartItem);
+    //     setcartItem(newItemCount)
+    //     console.log("plus in the cart", item);
     // }
-    const deleteFromCart = (id, num) => {// אם בהזמנת מוצר זה יש 0פריטים הוצא מהעגלה
-        if (num === 0)
-            setcartItem(cartItem.filter((i) => i.id !== id))
-        // }
-        // const updateItemAmount = (id, count) => {// עידכון הכמות בהזמנה+
-        //     const newItemAmount={ ...cartItem.((i)=> i.count+1)}
-        //         setcartItem(newItemAmount)
+    const changeItemCount = (itemId, counterAdd) => {
+        var newItemCount = [...cartItem]
+
+        newItemCount = newItemCount.map((item, index) => {
+            if (item.id === itemId) {
+                item.count = item.count + counterAdd
+                if (item.count < 1) {
+                    return null
+                }
+
+            }
+            return item
+        })
+        newItemCount = newItemCount.filter(i => i !== null)
+        setcartItem(newItemCount)
+
     }
+
 
     const onClickfiltersHandler = (filterName) => {//פונקציה שמקבלת את בקשת הקטגוריה ומשנה את state
         setdepartmentFilter((oldState) => ({
@@ -85,16 +78,7 @@ export default function Home() {
 
 
     }
-    // function changeItemCount(item,e){//פונקציה שמשנה את מספר הפריטים בעגלה
-       
-    //     if(e.value ==="+")
-    //      return item.count +1
-       
-    //    else if(e.value ==="-")
-    //      return item.count -1
-    //    else return null
-       
-    
+    console.log(departmentFilter)
 
     async function getItems() {//פונקציה שמקבלת את המוצרים הנבחרים
         var url = `http://localhost:5555/items/?price=${departmentFilter.barPrice}&department=${departmentFilter.filterName}`
@@ -111,7 +95,7 @@ export default function Home() {
     }
     async function getAllItems() {//פונקציה שמקבלת את כל המוצרים
         try {
-            const res = await fetch(`http://localhost:5555/itemss/`)
+            const res = await fetch(`http://localhost:5555/itemss/?price=${departmentFilter.barPrice}`)
                 .then(r => r.json())
 
             console.log("all");
@@ -139,17 +123,46 @@ export default function Home() {
 
 
     }
+    // const payHandler = (e) => {
 
+    // }
 
+    const payProsse = async (e, cartItem, curntTotalPrice) => {
+        //פונקציה שמקבלת את המוצרים הנבחרים
+        // var url = `http://localhost:5555/user/?order=${cartItem.name}&price=${curntTotalPrice}`
+        // try {
+        //     const res = await fetch(url)
+        //         .then(r => r.json())
+        console.log("pay done");
 
+        //     setcartItem(null)
+
+        // } catch (error) {
+        //     console.log("pay faild");
+        //  }
+    }
 
 
     return <div className='homePage'>
         <div className="poster"></div>
         <div className="homePageMain">
-            <Filtrs departmentFilter={departmentFilter} onClickfiltersHandler={onClickfiltersHandler} barPriceChange={barPriceChange} />
-            <ItemAvailable items={items} selectedItem={selectedItem} cartItem={cartItem} changeItemCountMinus={changeItemCountMinus} changeItemCountPlus={changeItemCountPlus}/>
-            <Cart cartItem={cartItem} />
+
+            <Filtrs
+                departmentFilter={departmentFilter}
+                onClickfiltersHandler={onClickfiltersHandler}
+                barPriceChange={barPriceChange} />
+
+            <ItemAvailable
+                items={items}
+                selectedItem={selectedItem}
+                cartItem={cartItem}
+                changeItemCount={changeItemCount} />
+
+            <Cart
+                cartItem={cartItem}
+                changeItemCount={changeItemCount}
+                payProsse={payProsse}
+            />
         </div>
     </div>
     // cartItemIdString={cartItem.map((i) => i.id).join(",")}
