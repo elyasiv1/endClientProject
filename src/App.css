@@ -1,6 +1,6 @@
 .homePage {
     background-size: auto;
-    background-image: url(https://i.pinimg.com/originals/3b/1e/a2/3b1ea270cac03760a5307af6c540b234.jpg);
+    /* background-image: url(https://i.pinimg.com/originals/3b/1e/a2/3b1ea270cac03760a5307af6c540b234.jpg); */
 }
 
 .hederLink {
@@ -18,23 +18,11 @@ header {
 
 }
 
-.logoImage {
-    right: 20px;
-    height: 40px;
-    width: 73px;
-    background-position: center;
-    box-sizing: inherit;
-    background-size: cover;
-    border-style: none;
-    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQBqKDaQXYvMG7YCC68T8UrVO_meuBsYb3z7w&usqp=CAU);
-    position: absolute;
-}
-
 nav {
     display: flex;
     list-style: none;
     position: absolute;
-    right: 570px;
+    right: 50%;
     top: 11px;
 }
 
@@ -78,11 +66,11 @@ nav {
     z-index: 7;
     flex-grow: 1;
     max-width: 600px;
-    background-color: yellowgreen;
+    background-color:#e0d9d8;
 }
 
 .searchInput {
-    background-color: yellowgreen;
+    background-color:#e0d9d8;
     border: none;
     padding-bottom: 0px;
     padding-right: 7px;
@@ -94,21 +82,53 @@ nav {
 
 .mainLogin {
 
-    height: 350px;
+    height: 400px;
     width: 400px;
     position: fixed;
-    background: yellowgreen;
+    background: #ecefe8;
     padding: 20px 10px;
     z-index: 11;
-    border: solid 2px black;
+    box-shadow: 0px 0px 4px 3px #000000;
     border-radius: 5%;
     right: 30%;
     top: 20%;
 }
 
-.loginExit {
+.inputbox {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.winExit {
     margin-right: 85%;
-    border-radius: 38%;
+    border-radius: 50%;
+}
+
+.ContactUsMain {
+    height: 400px;
+    width: 400px;
+    position: fixed;
+    background: #ecefe8;
+    padding: 20px 10px;
+    z-index: 11;
+    text-align: center;
+    box-shadow: 0px 0px 4px 3px #000000;
+    border-radius: 5%;
+    right: 30%;
+    top: 20%;
+}
+
+.bigTextBox {
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    width: 269px;
+    height: 90px;
+}
+
+.inputClass {
+    border-radius: 5Px;
 }
 
 .homePage {
@@ -125,32 +145,59 @@ nav {
     width: 74%;
     display: flex;
     flex-wrap: wrap;
+    margin-right: 14%;
+}
+
+.itemDiteail {
+    height: 80%;
+    width: 52%;
+    position: fixed;
+    background: white;
+    padding: 20px 10px;
+    z-index: 11;
+    text-align: center;
+    border: solid 2px black;
+    border-radius: 5%;
+    right: 20%;
+    top: 5%;
+}
+
+.bigItemImg {
+    height: 30%;
+    width: 30%;
 }
 
 .bigBoxFilters {
+
+    z-index: 11;
     border-radius: 4%;
-    margin-top: 6px;
-    background-color: rgb(232, 220, 233);
-    width: 12%;
-    height: 382px;
-    box-shadow: 0 0 4px 1px black;
-    background-color: rgb(232, 220, 233);
+    position: fixed;
+    overflow-y: auto;
+    margin-top: -261px;
+    width: 13%;
+    height: 619px;
+    background-color: #f1f1f1;
+}
+
+.filimg {
+    height: 60px;
+    width: 65px;
 }
 
 .liCatgory {
+    font-family: "Audiowide", sans-serif;
+    font-weight: bold;
     text-decoration: none;
     list-style: none;
     cursor: pointer;
     font-size: larger;
+    border-bottom: 2px solid white;
 }
 
 .liCatgory:hover {
     border-bottom: 2px solid purple;
 }
 
-.liCatgoryOn {
-    font-weight: bold;
-}
 
 .priceBarcontainer {
     width: 98%;
@@ -191,31 +238,33 @@ nav {
     cursor: pointer;
 }
 
+.login {
+    font-weight: bold;
+}
 
 .itemAvailable {
-    text-align: center;
+
     position: relative;
-    background-color: rgb(232, 220, 233);
-    width: 30%;
-    height: 180px;
+    background-color: #f1f1f1;
+    width: 26%;
+    height: 360px;
     margin: 5px;
-    box-shadow: 0 0 4px 1px black;
-    border: solid black 2px;
+    font-family: sans-serif;
     border-radius: 4%;
+
 }
 
 .itemAvailable:hover {
-    text-align: center;
+
     background-color: rgb(232, 176, 264);
     box-shadow: 2px 2px 4px #000000;
     margin: 5px;
-
     border: solid black 2px;
 }
 
 .itemImg {
-    height: 65px;
-    width: 65px;
+    height: 235px;
+    width: 100%;
     background-position: center;
     box-sizing: inherit;
     background-size: cover;
@@ -226,15 +275,24 @@ nav {
     color: purple;
     font-size: large;
     font-family: sans-serif;
+    cursor: pointer;
 }
 
 .itemPrice {
-    font-family: cursive;
+    display: flex;
+    font-family: sans-serif;
+    font-size: small;
+}
+
+.natPrice {
+    text-decoration-line: line-through;
+    color: gray;
+    margin-right: 10px;
 }
 
 .poster {
     height: 210px;
-    width: 80%;
+    width: 100%;
     margin: auto;
     background-size: cover;
     margin: auto;
@@ -244,15 +302,15 @@ nav {
 .addToCart {
     width: 100%;
     height: 40px;
-    background-color: #c2ea22;
-    /* overflow: hidden; */
+    background-color: #ce5e52;
     text-align: center;
+    font-family: sans-serif;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    font-size: x-large;
-    -webkit-text-stroke-width: medium;
+    font-size: large;
+    padding-top: 5px;
     cursor: pointer;
 }
 
@@ -260,8 +318,7 @@ nav {
     width: 100%;
     height: 40px;
     display: flex;
-    background-color: #c2ea22;
-    /* overflow: hidden; */
+    background-color: #ce5e52;
     text-align: center;
     position: absolute;
     bottom: 0;
@@ -280,7 +337,7 @@ nav {
     width: 10%;
     height: 40px;
     left: 0;
-    background-color: #b5db1e;
+    background-color: #ce5e52;
     text-align: center;
     position: absolute;
     bottom: 0;
@@ -293,7 +350,7 @@ nav {
     width: 10%;
     height: 40px;
     right: 0;
-    background-color: #b5db1e;
+    background-color: #ce5e52;
     text-align: center;
     position: absolute;
     bottom: 0;

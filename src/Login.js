@@ -38,9 +38,10 @@ class Login extends React.Component {
                     this.setState({ error: res.error.message || res.error })
 
                 else {
-                   
+
                     localStorage.token = res.token
                     localStorage.email = values.email
+                    // localStorage.name = values.name
                     this.props.history.push('/')
                 }
             })
@@ -60,7 +61,7 @@ class Login extends React.Component {
     }
 
     render(props) {
-        
+
         const { isLogin, error } = this.state
         const creditCardIcon = <FontAwesomeIcon icon={faCreditCard} />
         if (localStorage.token) {
@@ -69,20 +70,22 @@ class Login extends React.Component {
         }
 
         return <div className='mainLogin'>
-            <button className="loginExit" onClick={()=>{this.props.CloseLoginWin()}}>X</button>
+            <button className="winExit" onClick={() => { this.props.CloseLoginWin() }}>X</button>
             <h1>{isLogin ? 'כניסה' : 'הרשמה'}</h1>
             <form onSubmit={this.submitHandler} onChange={this.changeHandler} >
-                {isLogin ? null : <input name='name' placeholder='שם' type='text' required />}
+                {isLogin ? null : <input name='name' className="inputbox" placeholder='שם' type='text' required />}
                 <br />
-                <input name='email' placeholder='דוא"ל' type='email' required />
+                <input name='email' className="inputbox" placeholder='דוא"ל' type='email' required />
                 <br />
-                <input name='password' placeholder='סיסמא ' type='password' required />
+                {isLogin ? null : <input name='Address' className="inputbox" placeholder='כתובת מגורים למשלוח' type='text' required />}
                 <br />
-                {isLogin ? null :  <label for="creditCard">{creditCardIcon}מספר כרטיס אשראי</label> }
+                <input name='password' className="inputbox" placeholder='סיסמא ' type='password' required />
                 <br />
-                {isLogin ? null :  <input name='creditCard' type="tel" inputmode="numeric"required pattern="[0-9\s]{13,16}"
+                {isLogin ? null : <label for="creditCard">{creditCardIcon}מספר כרטיס אשראי</label>}
+                <br />
+                {isLogin ? null : <input name='creditCard' className="inputbox" type="tel" inputmode="numeric" required pattern="[0-9\s]{13,16}"
                     autocomplete="cc-number" maxlength="16" placeholder="xxxx xxxx xxxx xxxx" ></input>}
-               
+
                 <br />
                 <input value='שלח' type='submit' />
             </form>

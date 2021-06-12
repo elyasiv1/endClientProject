@@ -3,11 +3,14 @@ import './Cart.css';
 import Login from './Login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShekelSign, faShoppingCart, faHandshake } from '@fortawesome/free-solid-svg-icons'
+import { bindActionCreators } from 'redux';
+import * as actionsCreators from './actions/index.js';
+import { connect } from 'react-redux';
 
-
-export default function Cart(props) {
+const Cart = (props) => {
     const [showLogIn, setshowLogIn] = useState(false)
     const { cartItem = [] } = props
+
     let curntTotalPrice = null
     let totalPrice = cartItem.map((i) => {
         curntTotalPrice = curntTotalPrice + (i.price * i.count)
@@ -19,7 +22,7 @@ export default function Cart(props) {
     const CloseLoginWin = () => {
         setshowLogIn(false)
     }
-
+   
 
     //הם פונקצית הרכישה בוצע צריך להיות פה ואם כן אז היא צריכה להעביר את פרטי העגלה למשתמש בדאטא בייס ולמחוק את הפרטי העגלה לאחר מכן
 
@@ -28,6 +31,7 @@ export default function Cart(props) {
     let cartLength = cartItem.length
     let show = <div className='mainCart'>
         <h2 className='cartTitel'>  {iconCart} העגלה ריקה</h2>
+        <h3>כדי למלא את העגלה יש להוסיף מוצרים מהרשימה</h3>
     </div>
 
 
@@ -83,17 +87,23 @@ export default function Cart(props) {
                 <div className="totalPrice" onClick={(e) => {
 
                     setshowLogIn(true)
-                    return
+                    return                                           //?
                 }}>לתשלום :{curntTotalPrice} {shekel}
                 </div>
             }
 
 
         </div>
-
-
-
     }
-
-
 }
+
+const mapStateToProps = state => {
+    return {
+        shop: state.shop
+    };
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -2,24 +2,35 @@ import React, { useEffect, useState } from 'react'
 import ItemAvailable from './ItemAvailable'
 import Filtrs from './Filters'
 import Cart from './Cart'
+import { bindActionCreators } from 'redux';
+import * as actionsCreators from './actions/index.js';
+import { connect } from 'react-redux';
 
 
-export default function Home() {
+const Home = (props) => {
     const [items, setItems] = useState([])//מוצרים
     const [cartItem, setcartItem] = useState([])// פרטים בעגלה
     const [departmentFilter, setdepartmentFilter] = useState({//state שמכיל את הקטגוריות של המוצרים
+
         all: false,
         balls: false,
         coach: false,
         players: false,
         yard: false,
-        barPrice: 5000,
+        barPrice: 2000,
         filterName: "all"
+    })
+
+    const [payDone, setpayDone] = useState({
+        email: localStorage.email,
+        date: new Date(),
+        Order: [],
     })
 
     useEffect(() => {
         console.log("effect")
         loadingItem()
+
     }, [departmentFilter])
 
     const selectedItem = (item) => {
@@ -31,15 +42,7 @@ export default function Home() {
         setcartItem(newSelectedItemsList)
         console.log("add to cart", item);
     }
-    // const changeItemCountPlus = (item) => {
-    //     item.count = item.count + 1
 
-    //     const newItemCount = [...cartItem, item]
-    //     // עכון הוספת יחדה למוצר 
-
-    //     setcartItem(newItemCount)
-    //     console.log("plus in the cart", item);
-    // }
     const changeItemCount = (itemId, counterAdd) => {
         var newItemCount = [...cartItem]
 
@@ -78,7 +81,7 @@ export default function Home() {
 
 
     }
-    console.log(departmentFilter)
+
 
     async function getItems() {//פונקציה שמקבלת את המוצרים הנבחרים
         var url = `http://localhost:5555/items/?price=${departmentFilter.barPrice}&department=${departmentFilter.filterName}`
@@ -123,28 +126,46 @@ export default function Home() {
 
 
     }
-    // const payHandler = (e) => {
 
-    // }
 
-    const payProsse = async (e, cartItem, curntTotalPrice) => {
-        //פונקציה שמקבלת את המוצרים הנבחרים
-        // var url = `http://localhost:5555/user/?order=${cartItem.name}&price=${curntTotalPrice}`
-        // try {
-        //     const res = await fetch(url)
-        //         .then(r => r.json())
-        console.log("pay done");
+    const payProsse = async () => {
+        const Order = cartItem
 
-        //     setcartItem(null)
+        let curntTotalPrice = null
+        Order.map((i) => {
 
-        // } catch (error) {
-        //     console.log("pay faild");
-        //  }
+            curntTotalPrice = curntTotalPrice + (i.price * i.count)
+
+            setpayDone({ ...payDone, curntTotalPrice, Order })
+        })
+
+
+        try {
+            const res = await fetch(`http://localhost:5555/user/order/?date=${payDone}`,
+                {
+                    method: 'post',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payDone)
+                }
+            )
+                .then(r => r.json())
+            console.log("pay Done", payDone)
+            setpayDone(res)
+        }
+
+        catch (error) {
+            console.log("pay faild", payDone);
+        }
+
     }
 
 
     return <div className='homePage'>
         <div className="poster"></div>
+
         <div className="homePageMain">
 
             <Filtrs
@@ -154,16 +175,29 @@ export default function Home() {
 
             <ItemAvailable
                 items={items}
-                selectedItem={selectedItem}
                 cartItem={cartItem}
-                changeItemCount={changeItemCount} />
+                selectedItem={selectedItem}
+                changeItemCount={changeItemCount}
+            />
 
-            <Cart
+            {props.shop.show ? <Cart
                 cartItem={cartItem}
                 changeItemCount={changeItemCount}
                 payProsse={payProsse}
-            />
+            /> : null}
         </div>
     </div>
-    // cartItemIdString={cartItem.map((i) => i.id).join(",")}
+
 }
+
+const mapStateToProps = state => {
+    return {
+        shop: state.shop
+    };
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    setShowCart: actionsCreators.setShowCart,
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

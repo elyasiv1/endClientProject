@@ -15,7 +15,6 @@
 }
 
 .cartTitel {
-    background-color: yellowgreen;
     height: 30px;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -60,13 +59,13 @@
 
 /* .cartIndividualCount */
 .CartNamber {
-    background-color: yellowgreen;
+    background-color:  #ce5e52;
     display: flex;
 
 }
 
 .CartPM {
-    background-color: #b5db1e;
+    background-color: #ce5e52;
     width: 33%;
     font-size: large;
     margin: auto;
@@ -76,7 +75,8 @@
 .totalPrice {
     height: 25px;
     inline-size: -webkit-fill-available;
-    background-color: #c2ea22;
+    background-color:  #ce5e52;
+    border: black solid 3px;
     bottom: 5px;
     cursor: pointer;
     position: sticky;
@@ -88,6 +88,6 @@
 .pay {
     padding: 2px;
     border-radius: 5px;
-    width: 40%;
+    width: 30%;
     background-color: rgb(140 190 210);
 }
